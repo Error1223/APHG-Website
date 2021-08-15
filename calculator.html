@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <title>AP Human Geography Score Calculator</title>
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+        integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+       
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900|Source+Sans+Pro:400,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="res/css/style.css">
+    </head>
+
+    <body style="background-color: #303030;text-align:center">
+        <h2 class="calc__title">APHG Score Calculator</h2>
+        <section class="my-calculator" id="my-calculator" align="left">
+        <form id="calc">
+            <h3 class="section__title section__title--mcq">Multiple Choice Section</h3>
+            <div class="calc-sections">
+                <label for="mcq">Amount between 0 and 60: </label> 
+                <input class="slider"type="range" name="amountRang" min="0" max="60" value="0" oninput="this.form.amountInpu.value=this.value" />
+                <input id="mcq" type="number" name="amountInpu" min="0" max="60" value="0" oninput="this.form.amountRang.value=this.value" />
+                <br>
+            </div>
+            <h3 class="section__title section__title--frq">FRQ Section</h3>
+            <div class="calc-sections">
+                <label for="frq1">Amount between 0 and 7: </label>
+                <input class="slider" type="range" name="amountRange" min="0" max="7" value="0" oninput="this.form.amountInput.value=this.value" />
+                <input id="frq1" type="number" name="amountInput" min="0" max="7" value="0" oninput="this.form.amountRange.value=this.value" />
+                <br> 
+                <label for="frq2">Amount between 0 and 7: </label>
+                <input class="slider" type="range" name="amountRange1" min="0" max="7" value="0" oninput="this.form.amountInput1.value=this.value" />
+                <input id="frq2" type="number" name="amountInput1" min="0" max="7" value="0" oninput="this.form.amountRange1.value=this.value" />
+                <br> 
+                <label for="frq3">Amount between 0 and 7: </label>
+                <input class="slider" type="range" name="amountRange2" min="0" max="7" value="0" oninput="this.form.amountInput2.value=this.value" />
+                <input id="frq3" type="number" name="amountInput2" min="0" max="7" value="0" oninput="this.form.amountRange2.value=this.value" />
+                <br> 
+            </div>
+            <a class="btn" onclick="calcScore()">submit</a>
+            <div class="results">
+                <div>
+                    <h3><span style="color: #ADD8E6;font-size: 20px;">MCQ Total: </span><span id="mcq-totalText" style="font-size: 20px;"></span></h3>
+                    <h3><span style="color: #ADD8E6;font-size: 20px">FRQ Total: </span><span id="frq-totalText" style="font-size: 20px;"></span></h3>
+                    <h3><span style="color: #ADD8E6;font-size: 20px">Composite: </span><span id="compositeText" style="font-size: 20px;"></span></h3>
+                <div class="final__text">
+                    <h3><span style="color: #ADD8E6;">Final Score: </span><span id="finalText" style="font-size: 50px;"></span></h3>
+                </div> 
+            </div>
+        </form>
+    </body>
+    <script>
+    function calcScore() {
+        let scores = {
+            mcq: 0,
+            frq: 0
+        };
+        scores.mcq = parseInt(document.getElementById("mcq").value);
+        scores.frq = parseInt(document.getElementById("frq1").value);
+        scores.frq += parseInt(document.getElementById("frq2").value);
+        scores.frq += parseInt(document.getElementById("frq3").value);
+        
+        let comp = (scores.frq * 2.8571) + scores.mcq;
+        let final;
+
+        comp <= 47 ? final = 1 : comp <= 58 ? final = 2 : comp <= 70 ? final = 3 : comp <= 84 ? final = 4 : final = 5;
+        document.getElementById("mcq-totalText").innerHTML = scores.mcq;
+        document.getElementById("frq-totalText").innerHTML = scores.frq;
+        document.getElementById("compositeText").innerHTML = Math.round(comp);
+        document.getElementById("finalText").innerHTML = final;
+    }
+    </script>
+</html>
